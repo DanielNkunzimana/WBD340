@@ -117,7 +117,7 @@ footer {
 /* Car models section */
 .more-info {
   margin-top: 40px;
-  align-items: left;
+  align-items: center;
 }
 
 .more-info h3 {
@@ -133,7 +133,7 @@ footer {
   grid-template-columns: repeat(2, 1fr);
   margin-left: auto;
   margin-right: auto;
-  align-content: left;
+  align-content: space-between;
 }
 
 .model-item {
