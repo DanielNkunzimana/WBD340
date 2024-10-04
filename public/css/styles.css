@@ -1,4 +1,4 @@
-/******* Change Box Model ***************/
+css code     /******* Change Box Model ***************/
 *,
 *:before,
 *:after {
@@ -60,7 +60,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-  background-color: #00aaff;
+  background-color: #00008B;
 }
 .account-link a {
   color: white;
@@ -85,7 +85,7 @@ main {
 }
 
 .car-info h3 {
-  color: #00aaff;
+  color: #00008B;
 }
 
 .car-info p {
@@ -96,7 +96,7 @@ main {
 }
 
 .button {
-  background-color: #00aaff;
+  background-color: #00008B;
   color: white;
   padding: 10px 20px;
   text-decoration: none;
@@ -188,25 +188,24 @@ footer {
   .model-item {
       margin-bottom: 20px;
   }
-}
 
-.more-info {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  grid-gap: 10px;
-}
+  .more-info {
+    margin-top: 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-gap: 10px;
+  }
 
-.reviews {
+  .reviews {
     margin-top: 40px;
     flex-wrap: wrap;
-    
-}
+  }
 
-.reviews ul {
+  .reviews ul {
     padding: 0;
-}
+  }
 
-.reviews ul li {
+  .reviews ul li {
     margin-bottom: 10px;
+  }
 }
