@@ -1,0 +1,15 @@
+<section class="error-message"></section>
+    <h2>Oops! Something went wrong (Error <%= title %>)...</h2>
+    
+    <p><%- message %></p>
+
+    <p>But hey, every mistake is just an opportunity to learn... right?</p>
+
+    <% if (title == "404" || title == 404) { %>
+        <p>It looks like you're trying to find a page that doesn't exist. Kind of like trying to find a unicorn...</p>
+    <% } else { %>
+        <p>Looks like we hit a snag. Our server might need a coffee break.</p>
+    <% } %>
+
+    <a href="/">Go back to Home</a>
+</section>

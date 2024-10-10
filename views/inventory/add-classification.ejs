@@ -1,0 +1,35 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <% if (error.msg !== "Invalid value") { %>
+                <li><%= error.msg %></li>
+            <% } %>
+        <% }) %>
+    </ul>
+<% } %>
+
+<div class="form-container">
+    <form action="/inv/add-classification" method="POST">
+        <label for="classification_name">Classification Name:</label>
+        <p>Name must be alphanumeric characters only.</p>
+        <input type="text" 
+               id="classification_name" 
+               name="classification_name" 
+               required 
+               pattern="^[A-Za-z0-9]{1,50}$" 
+               title="Classification name must be 1 to 50 alphanumeric characters without spaces." 
+               minlength="1" 
+               maxlength="50"
+               value="<%= typeof classification_name !== 'undefined' ? classification_name : '' %>">
+        <button type="submit">Add Classification</button>
+    </form>    
+</div>
+
+<script src="/js/validate.js"></script>

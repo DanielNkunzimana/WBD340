@@ -1,3 +1,4 @@
+
 /* General Styles - Mobile First Approach */
 body {
   font-family: 'Roboto', sans-serif;
@@ -86,15 +87,15 @@ main {
 
 .car-details {
   position: absolute;
-  top: 100px;
+  top: 150px;
   left: 30px;
   background-color: rgba(255, 255, 255, 0.8); 
   padding: 10px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
   text-align: left; 
-  color: #121314;
-  font-size: small;
+  color: #00a1e0;
+  font-size: small; 
 }
 
 .car-details p {
@@ -207,7 +208,6 @@ main {
 }
 
 .notice {
-  text-align: center;
   font-size: 1.5rem;
   color: #ff6b6b;
   margin-top: 20px;
@@ -236,7 +236,7 @@ main {
 
 .error-message h2 {
   font-size: 2rem;
-  color: #e74c3c; /* Red color for the error */
+  color: #e74c3c; 
   margin-bottom: 1rem;
 }
 
@@ -265,6 +265,105 @@ main {
 .vehicle-image img {
   width: 95%; 
   height: auto; 
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: auto;
+  text-align: center;
+}
+
+form label {
+  display: block;
+  margin-bottom: 2px;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 25px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+form button {
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+form button:hover {
+  background-color: #333;
+}
+
+.form-p {
+  text-align: center;
+}
+
+#togglePassword {
+  text-decoration: none;
+  margin-left: 10px; 
+  margin-bottom: 15px;
+  cursor: pointer;
+  font-size: 14px;
+  color: black; 
+}
+
+.password-container {
+  display: flex;
+  align-items: center;
+}
+
+#togglePassword:hover {
+  color: #0056b3;
+}
+
+Input:focus {
+  Background-color: #f0f0f0; 
+  Outline: none;
+}
+  
+Input.valid {
+  Background-color: #d4edda;
+}
+
+Input.invalid {
+  Background-color: #f8d7da;
+}
+
+.full-width-select {
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.full-width-textarea {
+  width: 100%;
+  height: 100px;
+  resize: vertical;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+textarea.valid {
+  background-color: #e6ffe6;
+}
+
+textarea.invalid {
+  background-color: #ffe6e6; 
 }
 
 footer {
@@ -330,7 +429,7 @@ footer p {
 
   .car-details {
     position: absolute;
-    top: 100px;
+    top: 180px;
     left: 60px;
     background-color: rgba(255, 255, 255, 0.8); 
     padding: 20px;

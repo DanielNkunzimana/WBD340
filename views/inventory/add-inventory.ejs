@@ -1,0 +1,119 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <% if (error.msg !== "Invalid value") { %>
+                <li><%= error.msg %></li>
+            <% } %>
+        <% }) %>
+    </ul>
+<% } %>
+
+<div class="form-container">
+    <form action="/inv/add-inventory" method="POST">
+        <label for="inv_make">Make:</label>
+        <input type="text" 
+               id="inv_make" 
+               name="inv_make" 
+               value="<%= inv_make || '' %>" 
+               required 
+               minlength="3" 
+               pattern="^[A-Za-z0-9 ]{3,}$" 
+               title="Make must be at least 3 characters long and can contain alphanumeric characters without special characters." 
+               placeholder="Minimum 3 characters">
+    
+        <label for="inv_model">Model:</label>
+        <input type="text" 
+               id="inv_model" 
+               name="inv_model" 
+               value="<%= inv_model || '' %>" 
+               required 
+               minlength="3" 
+               pattern="^[A-Za-z0-9 ]{3,}$" 
+               title="Model must be at least 3 characters long and can contain alphanumeric characters without special characters." 
+               placeholder="Minimum 3 characters">
+    
+        <label for="inv_year">Year:</label>
+        <input type="number" 
+               id="inv_year" 
+               name="inv_year" 
+               value="<%= inv_year || '' %>" 
+               required 
+               min="1900" 
+               max="2100" 
+               title="Year must be a valid 4-digit year." 
+               placeholder="4-digit year">
+    
+        <label for="inv_description">Description:</label>
+        <textarea id="inv_description" 
+                  name="inv_description" 
+                  required 
+                  class="full-width-textarea"
+                  placeholder="Enter a brief description..."><%= inv_description || '' %></textarea>
+    
+        <label for="inv_price">Price:</label>
+        <input type="number" 
+               id="inv_price" 
+               name="inv_price" 
+               value="<%= inv_price || '' %>" 
+               required 
+               min="0" 
+               step="0.01" 
+               title="Price must be a valid number (decimal or integer)." 
+               placeholder="Decimal or integer">
+    
+        <label for="inv_miles">Miles:</label>
+        <input type="number" 
+               id="inv_miles" 
+               name="inv_miles" 
+               value="<%= inv_miles || '' %>" 
+               required 
+               min="0" 
+               title="Miles must be a positive number." 
+               placeholder="Digit only">
+    
+        <label for="inv_color">Color:</label>
+        <input type="text" 
+               id="inv_color" 
+               name="inv_color" 
+               value="<%= inv_color || '' %>" 
+               required 
+               placeholder="Enter the vehicle color...">
+    
+        <label for="classificationList">Classification:</label>
+        <select name="classification_id" id="classificationList" required class="full-width-select">
+            <option value=''>Choose a Classification</option>
+            <% classificationList.forEach(function(classification) { %>
+                <option value="<%= classification.id %>" <%= classification.id == classification_id ? 'selected' : '' %> >
+                    <%= classification.name %>
+                </option>
+            <% }) %>
+        </select>
+    
+        <label for="inv_image">Vehicle Image:</label>
+        <input type="text" 
+               id="inv_image" 
+               name="inv_image" 
+               value="/images/vehicles/no-image.png" 
+               required 
+               title="Default image for the vehicle.">
+    
+        <label for="inv_thumbnail">Vehicle Thumbnail:</label>
+        <input type="text" 
+               id="inv_thumbnail" 
+               name="inv_thumbnail" 
+               value="/images/vehicles/no-image-tn.png" 
+               required 
+               title="Default thumbnail for the vehicle.">
+    
+        <button type="submit">Add Vehicle</button>
+    </form>       
+</div>
+
+<script src="/js/validate.js"></script>
