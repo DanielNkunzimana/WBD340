@@ -1,3 +1,13 @@
+const togglePassword = document.querySelector('#togglePassword');
+    const passwordInput = document.querySelector('#password');
+
+    togglePassword.addEventListener('click', function (e) {
+        e.preventDefault(); 
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        this.textContent = type === 'password' ? 'Show Password' : 'Hide Password';
+    });
+
 document.addEventListener('DOMContentLoaded', function () {
     const inputs = document.querySelectorAll('input');
     
@@ -11,20 +21,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 input.classList.add("invalid");
             }
         });
-    });
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    const textarea = document.getElementById('inv_description');
-    
-    textarea.addEventListener("input", function () {
-        if (textarea.checkValidity()) {
-            textarea.classList.remove("invalid");
-            textarea.classList.add("valid");
-        } else {
-            textarea.classList.remove("valid");
-            textarea.classList.add("invalid");
-        }
     });
 });
 

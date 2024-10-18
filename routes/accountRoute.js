@@ -15,4 +15,10 @@ router.post(
     "/login", regValidate.loginRules(),
     regValidate.checkLoginRegData, utilities.handleErrors(accountController.loginAccount))
 
+router.get("/", utilities.checkLogin, utilities.handleErrors(accountController.buildLoginDashboard))
+router.get('/logout', utilities.handleErrors(accountController.logoutAccount));
+router.get('/update/:id', utilities.handleErrors(accountController.getUpdateView));
+router.post('/update', regValidate.updateAccountRules(), regValidate.checkAccountUpdateData, utilities.handleErrors(accountController.updateAccount));
+router.post('/change-password', regValidate.updatePasswordRules(), regValidate.checkPasswordUpdateData, utilities.handleErrors(accountController.changePassword));
+
 module.exports = router

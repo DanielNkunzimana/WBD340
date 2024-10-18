@@ -1,0 +1,53 @@
+<% if (title) { %>
+    <h1><%= title %></h1>
+    <% } else {
+        res.redirect('/')
+    } %>
+
+<%- messages() %>
+<% if (errors) { %>
+    <ul class="notice">
+        <% errors.array().forEach(error => { %>
+            <% if (error.msg !== "Invalid value") { %>
+                <li><%= error.msg %></li>
+            <% } %>
+        <% }) %>
+    </ul>
+<% } %>
+
+<!-- Account Update Form -->
+<div class="form-container">
+    <form action="/account/update" method="POST" id="updateForm">
+        <label for="firstname">First Name:</label>
+        <input type="text" id="firstname" name="firstname" value="<%= account_firstname %>" required>
+        
+        <label for="lastname">Last Name:</label>
+        <input type="text" id="lastname" name="lastname" value="<%= account_lastname %>" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="<%= account_email %>" required>
+        
+        <input type="hidden" name="account_id" value="<%= account_id %>">
+        <button type="submit" id="updateButton" disabled>Update Account</button>
+    </form>    
+</div>
+
+<!-- Change Password Form -->
+<div class="form-container">
+    <form action="/account/change-password" method="POST">
+        <label for="password">New Password:</label>
+        <div class="password-container">
+            <input type="password" id="password" name="password" required pattern="(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*]).{12,}" 
+            title="Password must be at least 12 characters, contain at least 1 capital letter, 1 number, and 1 special character.">
+            <a href="#" id="togglePassword">Show Password</a>
+            <input type="hidden" name="account_id" value="<%= user.account_id %>">
+            <input type="hidden" name="firstname" value="<%= account_firstname %>">
+            <input type="hidden" name="lastname" value="<%= account_lastname %>">
+            <input type="hidden" name="email" value="<%= account_email %>">
+        </div>
+        <p>Password must be at least 12 characters, <br>contain at least 1 capital letter, 1 number, <br>and 1 special character.</p>
+        <button type="submit">Change Password</button>
+    </form>
+</div>
+
+<script src="/js/update.js"></script>

@@ -43,10 +43,12 @@ invCont.getVehicleDetails = utilities.handleErrors(async (req, res) => {
 invCont.managementView = utilities.handleErrors(async (req, res) => {
   try {
     const nav = await utilities.getNav();
+    const classificationList = await utilities.buildClassificationList();
     res.render("inventory/management", { 
       nav, 
       title: "Inventory Management",
-      errors: null 
+      errors: null,
+      classificationList
     });
   } catch (error) {
     console.error("Error rendering management view:", error);
@@ -136,7 +138,95 @@ invCont.addInventory = utilities.handleErrors(async (req, res) => {
     req.flash("notice", "Failed to add vehicle. Please try again.");
     res.redirect("/inv/add-inventory");
   }
+}); 
+
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id)
+  const invData = await invModel.getInventoryByClassificationId(classification_id)
+  if (invData[0].inv_id) {
+    return res.json(invData)
+  } else {
+    next(new Error("No data returned"))
+  }
+}
+
+invCont.getEditInventoryView = utilities.handleErrors(async (req, res) => {
+  const inventoryId = req.params.inventory_id;
+  const inventoryItem = await invModel.getInventoryById(inventoryId);
+  const classificationList = await invModel.getSingleClassifications();
+  const nav = await utilities.getNav();
+
+  if (!inventoryItem) {
+    req.flash("notice", "Inventory item not found.");
+    return res.redirect("/inv");
+  }
+  const errors = req.flash("errors") || [];
+
+  res.render('inventory/edit-inventory', {
+    title: `Edit ${inventoryItem.inv_make} ${inventoryItem.inv_model}`,
+    nav,
+    inventoryItem,
+    classificationList,
+    errors,
+  });
 });
 
+invCont.updateInventory = utilities.handleErrors(async (req, res) => {
+  const invId = req.params.id;
+  const inventoryData = {
+    inv_id: invId,
+    inv_make: req.body.inv_make,
+    inv_model: req.body.inv_model,
+    inv_year: req.body.inv_year,
+    inv_description: req.body.inv_description,
+    inv_image: req.body.inv_image,
+    inv_thumbnail: req.body.inv_thumbnail,
+    inv_price: req.body.inv_price,
+    inv_miles: req.body.inv_miles,
+    inv_color: req.body.inv_color,
+    classification_id: req.body.classification_id,
+  };
+
+  try {
+    await invModel.updateInventory(inventoryData);
+    req.flash("notice", `${inventoryData.inv_make} ${inventoryData.inv_model} updated successfully.`);
+    res.redirect('/inv');
+  } catch (error) {
+    console.error("Error updating vehicle:", error);
+    req.flash("notice", "Failed to update vehicle. Please try again.");
+    res.redirect(`/inv/edit/${invId}`);
+  }
+});
+
+invCont.getDeleteView = async (req, res) => {
+  const inventoryId = req.params.inv_id;
+  const inventoryItem = await invModel.getInventoryById(inventoryId);
+  const nav = await utilities.getNav();
+  
+  if (!inventoryItem) {
+    req.flash("notice", "Inventory item not found.");
+    return res.redirect("/inv");
+  }
+
+  res.render('inventory/delete-confirm', {
+    title: `Delete ${inventoryItem.inv_make} ${inventoryItem.inv_model}`,
+    nav,
+    inventoryItem,
+    errors: null
+  });
+};
+
+invCont.deleteInventoryItem = async (req, res) => {
+  const inv_id = parseInt(req.body.inv_id);
+  const deleteResult = await invModel.deleteInventoryItem(inv_id);
+  
+  if (deleteResult.rowCount) {
+    req.flash("notice", "Inventory item successfully deleted.");
+    res.redirect("/inv");
+  } else {
+    req.flash("notice", "Error: Unable to delete inventory item.");
+    res.redirect(`/inv/delete/${inv_id}`);
+  }
+};
 
 module.exports = invCont

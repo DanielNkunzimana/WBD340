@@ -1,0 +1,21 @@
+
+<% if (title) { %>
+    <h1><%= title %></h1>
+<% } else { 
+    res.redirect('/'); 
+} %>
+
+<%- messages() %>
+<h3>Welcome, <%= account_firstname %></h2>
+<p>You're logged in</p>
+<div>
+    <a href="/account/update/<%= user.account_id %>">Edit Account Information</a>
+    <br>
+    
+    <% if (account_type === 'Admin' || account_type === 'Employee') { %>
+        <div>
+            <h3>Inventory Management</h3>
+            <a href="/inv">Manage Inventory</a>
+        </div>
+    <% } %>
+</div>
