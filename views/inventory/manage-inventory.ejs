@@ -1,0 +1,14 @@
+<h1>Manage Inventory</h1>
+
+<% if (vehicles && vehicles.length > 0) { %>
+    <ul>
+        <% vehicles.forEach(function(vehicle) { %>
+            <li>
+                <a href="/inv/vehicle/<%= vehicle.id %>"><%= vehicle.name %></a>
+                - $<%= vehicle.price %>
+            </li>
+        <% }) %>
+    </ul>
+<% } else { %>
+    <p>No vehicles found for this classification.</p>
+<% } %>
