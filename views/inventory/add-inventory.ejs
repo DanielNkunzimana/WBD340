@@ -1,10 +1,12 @@
 <% if (title) { %>
     <h1><%= title %></h1>
-    <% } else {
-        res.redirect('/')
-    } %>
+<% } else {
+    res.redirect('/')
+} %>
 
 <%- messages() %>
+
+<!-- General error list (if applicable) -->
 <% if (errors) { %>
     <ul class="notice">
         <% errors.array().forEach(error => { %>
@@ -17,6 +19,8 @@
 
 <div class="form-container">
     <form action="/inv/add-inventory" method="POST">
+
+        <!-- Make Field -->
         <label for="inv_make">Make:</label>
         <input type="text" 
                id="inv_make" 
@@ -27,7 +31,11 @@
                pattern="^[A-Za-z0-9 ]{3,}$" 
                title="Make must be at least 3 characters long and can contain alphanumeric characters without special characters." 
                placeholder="Minimum 3 characters">
-    
+        <% if (errors && errors.find(e => e.param === 'inv_make')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'inv_make').msg %></div>
+        <% } %>
+
+        <!-- Model Field -->
         <label for="inv_model">Model:</label>
         <input type="text" 
                id="inv_model" 
@@ -38,7 +46,11 @@
                pattern="^[A-Za-z0-9 ]{3,}$" 
                title="Model must be at least 3 characters long and can contain alphanumeric characters without special characters." 
                placeholder="Minimum 3 characters">
-    
+        <% if (errors && errors.find(e => e.param === 'inv_model')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'inv_model').msg %></div>
+        <% } %>
+
+        <!-- Year Field -->
         <label for="inv_year">Year:</label>
         <input type="number" 
                id="inv_year" 
@@ -49,14 +61,22 @@
                max="2100" 
                title="Year must be a valid 4-digit year." 
                placeholder="4-digit year">
-    
+        <% if (errors && errors.find(e => e.param === 'inv_year')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'inv_year').msg %></div>
+        <% } %>
+
+        <!-- Description Field -->
         <label for="inv_description">Description:</label>
         <textarea id="inv_description" 
                   name="inv_description" 
                   required 
                   class="full-width-textarea"
                   placeholder="Enter a brief description..."><%= inv_description || '' %></textarea>
-    
+        <% if (errors && errors.find(e => e.param === 'inv_description')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'inv_description').msg %></div>
+        <% } %>
+
+        <!-- Price Field -->
         <label for="inv_price">Price:</label>
         <input type="number" 
                id="inv_price" 
@@ -67,7 +87,11 @@
                step="0.01" 
                title="Price must be a valid number (decimal or integer)." 
                placeholder="Decimal or integer">
-    
+        <% if (errors && errors.find(e => e.param === 'inv_price')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'inv_price').msg %></div>
+        <% } %>
+
+        <!-- Miles Field -->
         <label for="inv_miles">Miles:</label>
         <input type="number" 
                id="inv_miles" 
@@ -77,7 +101,11 @@
                min="0" 
                title="Miles must be a positive number." 
                placeholder="Digit only">
-    
+        <% if (errors && errors.find(e => e.param === 'inv_miles')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'inv_miles').msg %></div>
+        <% } %>
+
+        <!-- Color Field -->
         <label for="inv_color">Color:</label>
         <input type="text" 
                id="inv_color" 
@@ -85,7 +113,11 @@
                value="<%= inv_color || '' %>" 
                required 
                placeholder="Enter the vehicle color...">
-    
+        <% if (errors && errors.find(e => e.param === 'inv_color')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'inv_color').msg %></div>
+        <% } %>
+
+        <!-- Classification List -->
         <label for="classificationList">Classification:</label>
         <select name="classification_id" id="classificationList" required class="full-width-select">
             <option value=''>Choose a Classification</option>
@@ -95,23 +127,35 @@
                 </option>
             <% }) %>
         </select>
-    
+        <% if (errors && errors.find(e => e.param === 'classification_id')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'classification_id').msg %></div>
+        <% } %>
+
+        <!-- Vehicle Image Field -->
         <label for="inv_image">Vehicle Image:</label>
         <input type="text" 
                id="inv_image" 
                name="inv_image" 
-               value="/images/vehicles/no-image.png" 
+               value="<%= inv_image || '/images/vehicles/no-image.png' %>" 
                required 
                title="Default image for the vehicle.">
-    
+        <% if (errors && errors.find(e => e.param === 'inv_image')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'inv_image').msg %></div>
+        <% } %>
+
+        <!-- Vehicle Thumbnail Field -->
         <label for="inv_thumbnail">Vehicle Thumbnail:</label>
         <input type="text" 
                id="inv_thumbnail" 
                name="inv_thumbnail" 
-               value="/images/vehicles/no-image-tn.png" 
+               value="<%= inv_thumbnail || '/images/vehicles/no-image-tn.png' %>" 
                required 
                title="Default thumbnail for the vehicle.">
-    
+        <% if (errors && errors.find(e => e.param === 'inv_thumbnail')) { %>
+            <div class="error-message"><%= errors.find(e => e.param === 'inv_thumbnail').msg %></div>
+        <% } %>
+
+        <!-- Submit Button -->
         <button type="submit">Add Vehicle</button>
     </form>       
 </div>
