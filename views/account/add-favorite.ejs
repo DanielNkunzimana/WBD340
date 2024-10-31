@@ -1,0 +1,11 @@
+<% if (isFavorite) { %>
+    <form action="/favorites/remove" method="POST">
+        <input type="hidden" name="vehicleId" value="<%= vehicle.vehicle_id %>">
+        <button type="submit">Unfavorite</button>
+    </form>
+<% } else { %>
+    <form action="/favorites/add" method="POST">
+        <input type="hidden" name="vehicleId" value="<%= vehicle.vehicle_id %>">
+        <button type="submit">Favorite</button>
+    </form>
+<% } %>

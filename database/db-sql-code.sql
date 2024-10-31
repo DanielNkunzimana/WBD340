@@ -47,6 +47,12 @@ CREATE TABLE IF NOT EXISTS public.account
     CONSTRAINT account_pkey PRIMARY KEY (account_id)
 );
 
+CREATE TABLE IF NOT EXISTS favorites (
+    favorite_id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES public.account(account_id) ON DELETE CASCADE,
+    vehicle_id INT REFERENCES public.inventory(inv_id) ON DELETE CASCADE
+);
+
 -- Data for table `classification`
 INSERT INTO public.classification (classification_name)
 VALUES ('Custom'),

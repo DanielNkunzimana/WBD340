@@ -21,6 +21,8 @@ const pool = require('./database/');
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const setUser = require("./middleware/auth");
+const favoritesRoute = require("./routes/favoritesRoute");
+app.use("/favorites", favoritesRoute);
 
 /* ***********************
  * View Engine and Templates

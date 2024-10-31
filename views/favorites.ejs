@@ -1,0 +1,6 @@
+<h1>My Favorites</h1>
+<ul>
+    <% favorites.forEach(vehicle => { %>
+        <li><%= vehicle.make %> <%= vehicle.model %> - <%= vehicle.year %></li>
+    <% }) %>
+</ul>
